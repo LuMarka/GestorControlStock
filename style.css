@@ -1,0 +1,513 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #eef2f7;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    color: #333;
+    box-sizing: border-box;
+}
+
+.container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 1100px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    box-sizing: border-box;
+}
+
+h1 {
+    text-align: center;
+    color: #1a237e;
+    margin-bottom: 25px;
+    font-size: 2.2em;
+    font-weight: 600;
+}
+
+h2 {
+    color: #2c3e50;
+    margin-top: 0;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 8px;
+    font-size: 1.5em;
+}
+
+/* --- Filter Section --- */
+.filter-section {
+    background-color: #f8faff;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #e3e8f0;
+}
+
+.filter-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+}
+
+.filter-controls input[type="text"] {
+    flex: 1;
+    min-width: 180px;
+    padding: 12px 0px 12px 5px;
+    border: 1px solid #cdd5df;
+    border-radius: 6px;
+    font-size: 1em;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    box-sizing: border-box;
+}
+
+.filter-controls input[type="text"]:focus {
+    border-color: #4a69bd;
+    box-shadow: 0 0 0 3px rgba(74, 105, 189, 0.2);
+    outline: none;
+}
+
+/* --- Stock Display Section --- */
+.stock-display-section {
+    position: relative;
+}
+
+#add-new-btn {
+    background-color: #28a745;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-bottom: 20px;
+    display: block;
+}
+
+#add-new-btn:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+}
+
+/* --- Table Styles --- */
+/* Eliminar .table-responsive si no vas a usar scroll.
+   Si lo mantienes en HTML, asegúrate de que no tenga overflow-x: auto; en el CSS global. */
+.table-responsive {
+    /* No poner overflow-x: auto; aquí si no quieres desplazamiento lateral global */
+    width: 100%;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    background-color: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+    /* Remover min-width aquí si las columnas se van a apilar.
+       Si lo mantienes, forzará el ancho mínimo antes de que la media query actúe. */
+    /* min-width: 700px; */
+}
+
+th, td {
+    padding: 14px 18px;
+    text-align: left;
+    border-bottom: 1px solid #e6e9ee;
+    /* white-space: nowrap; // Remover para permitir que el texto se rompa en varias líneas */
+}
+
+th {
+    background-color: #4a69bd;
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.95em;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f9fbfd;
+}
+
+tbody tr:hover {
+    background-color: #eef3fb;
+    transition: background-color 0.2s ease;
+}
+
+.table-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.table-actions button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    white-space: nowrap;
+    min-width: 90px;
+    flex-grow: 1;
+}
+
+.table-actions .edit-btn {
+    background-color: #ffc107;
+    color: #333;
+}
+.table-actions .edit-btn:hover {
+    background-color: #e0a800;
+    transform: translateY(-1px);
+}
+
+.table-actions .delete-btn {
+    background-color: #dc3545;
+    color: white;
+}
+.table-actions .delete-btn:hover {
+    background-color: #c82333;
+    transform: translateY(-1px);
+}
+
+.table-actions .add-unit-btn {
+    background-color: #17a2b8;
+    color: white;
+}
+.table-actions .add-unit-btn:hover {
+    background-color: #138496;
+    transform: translateY(-1px);
+}
+
+/* --- Form Modal Styles --- */
+.form-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.form-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    width: 90%;
+    max-width: 500px;
+    transform: translateY(-20px);
+    transition: transform 0.3s ease;
+}
+
+.form-modal.active .modal-content {
+    transform: translateY(0);
+}
+
+.modal-content h3 {
+    text-align: center;
+    color: #1a237e;
+    margin-bottom: 25px;
+    font-size: 1.8em;
+}
+
+#stock-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#stock-form label {
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+#stock-form input[type="text"],
+#stock-form input[type="number"] {
+    width: calc(100% - 24px);
+    padding: 12px;
+    border: 1px solid #cdd5df;
+    border-radius: 6px;
+    font-size: 1em;
+    transition: border-color 0.3s ease;
+    box-sizing: border-box;
+}
+
+#stock-form input[type="text"]:focus,
+#stock-form input[type="number"]:focus {
+    border-color: #4a69bd;
+    outline: none;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.form-actions button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+#save-item-btn {
+    background-color: #007bff;
+    color: white;
+}
+#save-item-btn:hover {
+    background-color: #0056b3;
+}
+
+#cancel-form-btn {
+    background-color: #6c757d;
+    color: white;
+}
+#cancel-form-btn:hover {
+    background-color: #5a6268;
+}
+
+
+/* ... (Tu CSS existente antes de la media query de 735px) ... */
+
+/* --- Responsive Adjustments para pantallas pequeñas (max-width: 735px) --- */
+@media only screen and (max-width: 735px) {
+
+    .container {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 1.8em;
+    }
+
+    h2 {
+        font-size: 1.3em;
+    }
+
+    .filter-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filter-controls input[type="text"] {
+        width: 100%;
+        min-width: unset;
+    }
+
+    #clear-filters-btn {
+        width: 100%;
+    }
+
+    /* --- TABLA RESPONSIVA - Transformación a "Tarjetas" --- */
+    .table-responsive {
+        overflow-x: hidden;
+        width: 100%;
+    }
+
+    table {
+        border: 0;
+        width: 100%;
+        min-width: unset;
+    }
+
+    table thead {
+        /* Mantenemos los encabezados ocultos porque la estructura es de "cards" */
+        border: none;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+    }
+
+    table tr {
+        border: 1px solid #ddd;
+        display: block;
+        margin-bottom: 1.5em;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        background-color: #fff; /* Asegura un fondo blanco para la tarjeta */
+    }
+
+    table td {
+        border-bottom: 1px solid #eee;
+        display: flex; /* Cambiamos a flex para alinear etiqueta y valor */
+        justify-content: space-between; /* Etiqueta a la izquierda, valor a la derecha */
+        align-items: center; /* Centra verticalmente */
+        padding: 0.8em 1em;
+        font-size: 0.9em;
+        white-space: normal;
+        word-break: break-word; /* Permite que palabras largas se rompan */
+    }
+
+    table td::before {
+        content: attr(data-label) ":"; /* Añade dos puntos al final de la etiqueta */
+        flex-basis: 45%; /* Da más espacio a la etiqueta, ajusta si es necesario */
+        text-align: left; /* Alinea la etiqueta a la izquierda */
+        font-weight: bold;
+        text-transform: uppercase;
+        margin-right: 0.5em;
+        color: #333; /* Color más oscuro para la etiqueta */
+        font-size: 0.85em; /* Un poco más pequeña para la etiqueta */
+    }
+
+    table td:last-of-type { /* Selecciona la última celda, que suele ser las acciones */
+        border-bottom: 0;
+        padding-bottom: 0; /* Elimina padding inferior si las acciones tienen su propio padding */
+    }
+
+    .table-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        align-items: stretch;
+        padding: 1em; /* Mantiene un buen padding para los botones */
+        border-top: 1px solid #eee;
+        margin-top: 0.5em;
+    }
+
+    .table-actions button {
+        width: 100%;
+        margin-right: 0;
+        text-align: center;
+        padding: 10px 15px;
+        font-size: 0.9em;
+    }
+
+    #add-new-btn {
+        width: 100%;
+        text-align: center;
+        padding: 10px 20px;
+        font-size: 1em;
+    }
+
+    /* --- MODAL RESPONSIVO --- */
+    .modal-content {
+        width: 95%;
+        max-width: 350px;
+        padding: 20px;
+    }
+
+    #stock-form label {
+        font-size: 0.9em;
+    }
+
+    #stock-form input[type="text"],
+    #stock-form input[type="number"] {
+        padding: 10px;
+        font-size: 0.9em;
+    }
+
+    .form-actions {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .form-actions button {
+        width: 100%;
+        padding: 10px 15px;
+        font-size: 1em;
+    }
+}
+
+/* ... (Tu media query para 736px a 1071px, si ya la tienes) ... */
+@media only screen and (min-width: 736px) and (max-width: 1071px) {
+    .container {
+        padding: 25px;
+    }
+
+    .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        width: 100%;
+    }
+
+    table {
+        min-width: 850px; /* Ajusta este valor si es necesario para tus columnas */
+        width: 100%;
+    }
+
+    th, td {
+        padding: 12px 15px;
+        font-size: 0.9em;
+        white-space: nowrap;
+    }
+
+    /* Asegúrate de que las reglas para table-actions sean consistentes aquí */
+    .table-actions {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 5px;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    .table-actions button {
+        padding: 7px 10px;
+        font-size: 0.8em;
+        min-width: unset;
+        flex-grow: 0;
+        width: auto;
+        text-align: center;
+    }
+
+    .filter-controls {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .filter-controls input[type="text"] {
+        width: auto;
+        flex: 1;
+        min-width: 150px;
+    }
+
+    #clear-filters-btn {
+        width: auto;
+    }
+
+    #add-new-btn {
+        width: auto;
+        text-align: center;
+        margin: 0 auto 20px auto;
+        display: block;
+    }
+
+    .modal-content {
+        width: 80%;
+        max-width: 500px;
+        padding: 30px;
+    }
+}
