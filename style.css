@@ -47,6 +47,7 @@ h2 {
     padding: 20px;
     border-radius: 8px;
     border: 1px solid #e3e8f0;
+    margin-bottom: 25px; /* Agregado para separar del resto del contenido */
 }
 
 .filter-controls {
@@ -54,10 +55,12 @@ h2 {
     flex-wrap: wrap;
     gap: 15px;
     align-items: center;
+    justify-content: center; /* Centrar los ítems horizontalmente en el contenedor de filtros */
 }
 
 .filter-controls input[type="text"] {
-    flex: 1;
+    flex: 1 1; /* flex-grow: 1, flex-shrink: 1, flex-basis: 180px */
+                     /* Esto permite que cada input crezca, se encoja y tenga un ancho base */
     min-width: 180px;
     padding: 12px 0px 12px 5px;
     border: 1px solid #cdd5df;
@@ -82,11 +85,21 @@ h2 {
         font-size: 1.1em; 
         font-weight: 500;
         transition: background-color 0.3s ease, transform 0.2s ease;
-        display: block;
+        /*display: block;*/
+        white-space: nowrap;
+        background-color: #e0e0e0;
+        color: #333;
+        box-sizing: border-box;
+        /* Flexbox para el botón dentro de filter-controls */
+        flex-grow: 0; /* No permitir que el botón crezca */
+        flex-shrink: 0; /* No permitir que el botón se encoja */
+        /* Puedes ajustar el min-width del botón si necesitas que no se encoja demasiado en el mismo wrap */
+        min-width: 150px;
+        padding: 12px 25px;
 }
 
 #clear-filters-btn:hover {
-    background-color: #3a3838;
+    background-color: #cccccc;
     transform: translateY(-2px);
 }
 
@@ -332,6 +345,7 @@ tbody tr:hover {
     .filter-controls {
         flex-direction: column;
         align-items: stretch;
+        gap: 10px; /* Reduce un poco el espacio entre elementos apilados */
     }
 
     .filter-controls input[type="text"] {
@@ -341,11 +355,12 @@ tbody tr:hover {
 
     #clear-filters-btn {
         width: 100%;
-        border:none;
+        margin-top: 5px; /* Un poco de espacio si se apila */
+        min-width: unset;
+       /* border:none;
         padding:10px;
-        font-size: medium;
+        font-size: medium;*/
     }
-
     /* --- TABLA RESPONSIVA - Transformación a "Tarjetas" --- */
     .table-responsive {
         overflow-x: hidden;
@@ -460,6 +475,30 @@ tbody tr:hover {
         font-size: 1em;
     }
 }
+@media only screen and (min-width: 736px) and (max-width: 776px) {
+        .filter-controls {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px; /* Reduce un poco el espacio entre elementos apilados */
+        padding: 10px;
+    }
+
+    .filter-controls input[type="text"] {
+        width: 100%;
+        min-width: unset;
+    }
+
+    #clear-filters-btn {
+        width: 100%;
+        margin-top: 5px; /* Un poco de espacio si se apila */
+        min-width: unset;
+       /* border:none;
+        padding:10px;
+        font-size: medium;*/
+    } 
+}
+
+
 
 /* ... (Tu media query para 736px a 1071px, si ya la tienes) ... */
 @media only screen and (min-width: 736px) and (max-width: 1071px) {
@@ -500,30 +539,30 @@ tbody tr:hover {
         flex-grow: 0;
         width: auto;
         text-align: center;
+        
     }
 
     .filter-controls {
-        flex-direction: row;
-        flex-wrap: wrap;
+       /* flex-direction: row;
+        flex-wrap: wrap;*/
         justify-content: center;
-        align-items: center;
+        /*align-items: center;*/
     }
 
     .filter-controls input[type="text"] {
-        width: auto;
-        flex: 1;
+       /* width: auto;*/
+        flex:1 ;
         min-width: 150px;
     }
 
     #clear-filters-btn {
-        width: auto;
-        border:none;
-        padding:10px;
-        font-size: medium;
+        flex-grow: 0;
+        min-width: unset; /* Deja que el contenido decida o ajusta si es necesario */
+    }
     }
 
     #add-new-btn {
-        width: auto;
+        width: 100%;
         text-align: center;
         margin: 0 auto 20px auto;
         display: block;
@@ -534,4 +573,3 @@ tbody tr:hover {
         max-width: 500px;
         padding: 30px;
     }
-}

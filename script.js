@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const filterProveedorInput = document.getElementById('filter-proveedor');
     const filterCodigoInput = document.getElementById('filter-codigo');
     const filterDescripcionInput = document.getElementById('filter-descripcion');
+     const filterUbicacionInput = document.getElementById('filter-ubicacion');
     const clearFiltersBtn = document.getElementById('clear-filters-btn');
 
     let stockData = []; // Array de objetos para almacenar los repuestos
@@ -238,12 +239,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const filterProveedor = filterProveedorInput.value.toLowerCase();
         const filterCodigo = filterCodigoInput.value.toLowerCase();
         const filterDescripcion = filterDescripcionInput.value.toLowerCase();
+        const filterUbicacion = filterUbicacionInput.value.toLowerCase();
 
         const filteredData = stockData.filter(item => {
             const matchesProveedor = item.proveedor.toLowerCase().includes(filterProveedor);
             const matchesCodigo = item.codigo.toLowerCase().includes(filterCodigo);
             const matchesDescripcion = item.descripcion.toLowerCase().includes(filterDescripcion);
-            return matchesProveedor && matchesCodigo && matchesDescripcion;
+            const matchesUbicacion = item.ubicacion.toLowerCase().includes(filterUbicacion);
+
+            // Todas las condiciones deben ser verdaderas
+            return matchesProveedor && matchesCodigo && matchesDescripcion && matchesUbicacion;
         });
 
         renderStock(filteredData);
@@ -252,11 +257,13 @@ document.addEventListener('DOMContentLoaded', () => {
     filterProveedorInput.addEventListener('input', applyFilters);
     filterCodigoInput.addEventListener('input', applyFilters);
     filterDescripcionInput.addEventListener('input', applyFilters);
+    filterUbicacionInput.addEventListener('input', applyFilters);
 
     clearFiltersBtn.addEventListener('click', () => {
         filterProveedorInput.value = '';
         filterCodigoInput.value = '';
         filterDescripcionInput.value = '';
+        filterUbicacionInput.value = '';
         applyFilters(); // Re-render sin filtros
     });
 
